@@ -1,4 +1,3 @@
-word_list = ["paradis", "python", "parfait"]
 
 #TODO-1 - Randomly choose a word from the word_list and assign it to a variable called chosen_word.
 
@@ -10,13 +9,67 @@ word_list = ["paradis", "python", "parfait"]
 #For each letter in the chosen_word, add a "_" to 'display'.
 #So if the chosen_word was "apple", display should be ["_", "_", "_", "_", "_"] with 5 "_" representing each letter to guess.
 
-
+word_list = ["paradis", "python", "parfait"]
 
 import random 
 chosen_word = random.choice(word_list)
-
-#Testing code
-print(f'Pssst, the solution is {chosen_word}.') 
+lives = 6
+stages = ['''
+  +---+
+  |   |
+  O   |
+ /|\  |
+ / \  |
+      |
+=========
+''', '''
+  +---+
+  |   |
+  O   |
+ /|\  |
+ /    |
+      |
+=========
+''', '''
+  +---+
+  |   |
+  O   |
+ /|\  |
+      |
+      |
+=========
+''', '''
+  +---+
+  |   |
+  O   |
+ /|   |
+      |
+      |
+=========''', '''
+  +---+
+  |   |
+  O   |
+  |   |
+      |
+      |
+=========
+''', '''
+  +---+
+  |   |
+  O   |
+      |
+      |
+      |
+=========
+''', '''
+  +---+
+  |   |
+      |
+      |
+      |
+      |
+=========
+''']
 
 display = []
 word_length = len(chosen_word)
@@ -35,14 +88,23 @@ while not end_of_game:
     if letter == guess:
       display[position] = letter
 
+  if guess not in chosen_word:
+    lives -= 1
+    if lives == 0:
+      end_of_game = True
+      print("You lose.")
+
   print(display)
 
   if "_" not in display:
     end_of_game = True
     print("You win!")
 
+  print(f'Pssst, the solution is {chosen_word}.')  
+  print(stages[lives])
 
-#Testing code
+
+
 
 
 
