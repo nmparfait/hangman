@@ -9,67 +9,13 @@
 #For each letter in the chosen_word, add a "_" to 'display'.
 #So if the chosen_word was "apple", display should be ["_", "_", "_", "_", "_"] with 5 "_" representing each letter to guess.
 
-word_list = ["paradis", "python", "parfait"]
-
+from replit import clear
 import random 
-chosen_word = random.choice(word_list)
+import hangman_words
+chosen_word = random.choice(hangman_words.word_list)
 lives = 6
-stages = ['''
-  +---+
-  |   |
-  O   |
- /|\  |
- / \  |
-      |
-=========
-''', '''
-  +---+
-  |   |
-  O   |
- /|\  |
- /    |
-      |
-=========
-''', '''
-  +---+
-  |   |
-  O   |
- /|\  |
-      |
-      |
-=========
-''', '''
-  +---+
-  |   |
-  O   |
- /|   |
-      |
-      |
-=========''', '''
-  +---+
-  |   |
-  O   |
-  |   |
-      |
-      |
-=========
-''', '''
-  +---+
-  |   |
-  O   |
-      |
-      |
-      |
-=========
-''', '''
-  +---+
-  |   |
-      |
-      |
-      |
-      |
-=========
-''']
+from hangman_Art import logo, stages
+print(logo)
 
 display = []
 word_length = len(chosen_word)
@@ -82,6 +28,11 @@ end_of_game = False
 while not end_of_game:
   guess = input("Guess a letter: ").lower()
 
+  clear()
+
+  if guess in display:
+    print(f"You have already guessed {guess}")
+
   for position in range(word_length):
     letter = chosen_word[position]
     #print(f"Current position: {position}\n Current letter: {letter}\n Guessed letter: {guess}")
@@ -89,6 +40,7 @@ while not end_of_game:
       display[position] = letter
 
   if guess not in chosen_word:
+    print(f"You guessed {guess}, that's not in te word. You lose a life.")
     lives -= 1
     if lives == 0:
       end_of_game = True
